@@ -38,7 +38,9 @@ def supported_language(locale):
     """
     Returns the supported language (from settings.LANGUAGES) for the locale.
     """
-    locale = locale.lower()
+    # or settings.LANGUAGE_CODE fix for django 1.8
+    # because 1.8 `get_language` returns None if no any languages were activated
+    locale = (locale or settings.LANGUAGE_CODE).lower()
     bits = locale.split('-')
     if locale in localeurl_settings.SUPPORTED_LOCALES:
         return locale
